@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário vôlei</title>
+    <style>
+        body {
+            background: url('bola.jpg') no-repeat center center fixed;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-attachment: fixed;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .formulario-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            width: 300px;
+
+        }
+
+        .formulario-container h3 {
+            text-align: center;
+        }
+
+        h1 {
+            background-color: rgb(27, 206, 137);
+            padding: 10px;
+            text-align: center;
+        }
+
+        .formulario-div {
+            margin: 10px 0;
+        }
+
+        input[type="text"],
+        input[type="tel"],
+        input[type="email"] {
+            padding: 5px;
+            margin-top: 5px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="formulario-container">
+        <h1>Membros do Vôlei</h1>
+        <h3>Preencha o formulário abaixo</h3>
+
+        <div class="formulario-div">
+            <label for="nome">Nome</label>
+            <input type="text" id="nome" name="nome">
+        </div>
+
+        <div class="formulario-div">
+            <label for="telefone">Telefone</label>
+            <input type="tel" id="telefone" name="telefone" title="Digite um número de telefone válido (XX XXXXX-XXXX)"
+                placeholder="(00) 00000-0000">
+        </div>
+
+        <div class="formulario-div">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email">
+        </div>
+
+        <div class="formulario-div">
+            <input type="checkbox" id="avulso" name="opcao" value="avulso">
+            <label for="avulso">Avulso</label>
+        </div>
+
+        <div class="formulario-div">
+            <input type="checkbox" id="mensal" name="opcao" value="mensal">
+            <label for="mensal">Mensal </label>
+        </div>
+
+        <div class="formulario-div">
+            <button id="botaoCadastrar">Cadastrar</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Seleciona o botão pelo seu ID
+            var botaoCadastrar = document.getElementById("botaoCadastrar");
+
+            // Adiciona um evento de clique ao botão
+            botaoCadastrar.addEventListener("click", function () {
+                // Validar se o campo nome está preenchido e validar se contém no minimo três letras
+                // Seleciona o campo de nome pelo ID
+                var campoNome = document.getElementById("nome");
+                // Obtém o valor do campo de nome
+                var nome = campoNome.value;
+                // Remove espaços em branco no início e no final do nome
+                nome = nome.trim();
+                // Verifica se o campo de nome está vazio ou tem menos de 3 caracteres
+                if (nome === "" || nome.length < 3) {
+                    alert("Por favor, insira um nome válido com no mínimo três letras.");
+                    return;
+                }
+
+                //Validar se o campo telefone está preenchido e validar se contém um número válido
+                var campoTelefone = document.getElementById("telefone");
+                var telefone = campoTelefone.value;
+
+                // Remove espaços em branco, traços e parênteses do telefone
+                telefone = telefone.replace(/\s+/g, "").replace(/-/g, "").replace(/\(/g, "").replace(/\)/g, "");
+
+                // Verifica se o campo de telefone está vazio ou não contém 11 dígitos numéricos
+                if (telefone === "" || telefone.length !== 11 || isNaN(telefone)) {
+                    alert("Por favor, insira um número de telefone válido com 11 dígitos numéricos.");
+                    return;
+                }
+
+                //Validar se o campo email está preenchido e validar se é um email válido
+                var campoEmail = document.getElementById("email");
+                var email = campoEmail.value;
+
+                // Verifica se o campo de e-mail está vazio ou não contém um formato de e-mail válido
+                if (email === "" || !isValidEmail(email)) {
+                    alert("Por favor, insira um e-mail válido.");
+                    return;
+                }
+
+                //Validar se o usuário selecionou se é avulso ou mensal 
+                var opcaoAvulso = document.getElementById("avulso");
+                var opcaoMensal = document.getElementById("mensal");
+
+                var opcaoSelecionada = false;
+
+                if (opcaoAvulso.checked || opcaoMensal.checked) {
+                    opcaoSelecionada = true;
+                } else {
+                    alert("Por favor, selecione uma opção (Avulso ou Mensal).");
+                    return;
+                }
+
+                // Dispara um alerta quando o botão for clicado
+                alert("Cadastro realizado com sucesso!");
+
+            });
+
+            // Função para verificar se um e-mail é válido
+            function isValidEmail(email) {
+                var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return emailPattern.test(email);
+            }
+
+        });
+    </script>
+</body>
+
+</html>
